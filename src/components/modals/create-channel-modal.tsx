@@ -1,5 +1,7 @@
 'use client';
-import { useRouter } from 'next/navigation';
+import axios from 'axios';
+import qs from 'query-string';
+import { useParams, useRouter } from 'next/navigation';
 import { ChannelType } from '@prisma/client';
 import { UserButton } from '@clerk/nextjs';
 import * as z from 'zod';
@@ -47,6 +49,7 @@ const formSchema=z.object({
 })
 
 export const CreateChannelModal=()=>{
+    const params=useParams()
     const {isOpen,onClose,type}=useModal()
     const router=useRouter()
    const isModalOpen=isOpen && type==="createChannel";
@@ -60,9 +63,16 @@ export const CreateChannelModal=()=>{
     });
 const isLoading=form.formState.isSubmitting;
 const onSubmit =async(values:z.infer<typeof formSchema>)=>{
-    console.log('test')
+
 try{
-await axios.post("/api/channels",values);
+const url=qs.stringifyUrl({
+    url:'/api/channels',
+    query:{
+        id:params?.id,
+    },
+})
+console.log(url)
+await axios.post(url,values);
 form.reset()
 router.refresh()
 onClose()
