@@ -1,6 +1,7 @@
-import { auth, currentUser } from "@clerk/nextjs/server";
+import { auth,currentUser } from "@clerk/nextjs/server";
 // import { currentUser } from "@clerk/nextjs";
 import {db} from '@/lib//db';
+import { redirect } from "next/navigation";
 export const initialProfile = async ()=>{
 
     const  user= await currentUser();
