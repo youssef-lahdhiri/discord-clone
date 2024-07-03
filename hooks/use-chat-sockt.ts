@@ -61,7 +61,7 @@ socket.on(addKey,(message:MessageWithMemberWithProfil)=>{
             ...newData[0],
             items:[
                 message,
-                ...newData[0].irems
+                ...newData[0].items
             ]
         }
         return {

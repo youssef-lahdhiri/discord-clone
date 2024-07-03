@@ -17,14 +17,14 @@ const ServerHeader = ({server,role}:ServerHeaderProps) => {
     return (
     
     <DropdownMenu> 
-        <DropdownMenuTrigger  asChild className="focus:outline-none">
+        <DropdownMenuTrigger  asChild className="  focus:outline-none">
             <button className="w-full text-md font-semibold px-3 flex items-center h-12 border-neutral-200 
             dark:border-neutral-800 border-b-2 hover:bg-zinc-700/10 dark:hover:bg-zinc-700 
             ">{server.serverName}
             <ChevronDown className="h-5 w-5 ml-auto"/>
             </button>
         </DropdownMenuTrigger >
-        <DropdownMenuContent className="w-56 !bg-black/60 text:xs font-medium text-black dark:text-neutral-400 space-y-[2px] ">
+        <DropdownMenuContent className="w-56 !bg-black/70 text:xs relative z-[50] font-medium text-black dark:text-neutral-400 space-y-[2px] ">
 {isModerator&&<div onClick={()=>onOpen('invite',{server})} > <DropdownMenuItem className="flex items-center text-indigo-600  dark:text-indigo-400 px-3 py-2 text-sm cursor-pointer"> 
     <p>invite People</p> 
     <UserPlus className="h-4 w-4 mt-0 ml-auto"/>

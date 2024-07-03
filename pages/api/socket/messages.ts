@@ -3,11 +3,12 @@ import { channel } from "diagnostics_channel";
 import { NextApiRequest, NextApiResponse } from "next";
 import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
+import { NextApiResponseServerIo } from "../../../types";
 
 export default async function handler(
 
     req:NextApiRequest,
-    res:NextApiResponse
+    res:NextApiResponseServerIo,
 ){
 if(req.method !=='POST'){
     return res.status(405).json({error:"method not allowed "})
@@ -74,7 +75,7 @@ const message= await db.message.create({
     }
 })
 const channelKey=`chat:${channelId}:messages`;
-// res?.socket?.server?.io?.emit(channelKey,message)
+res?.socket?.server?.io?.emit(channelKey,message)
 return res.status(200).json({message})
 } catch (error) {console.log('messages_post',error)
     return res.status(500).json({message:'internael errir'})
