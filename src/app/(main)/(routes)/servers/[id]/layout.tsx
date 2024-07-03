@@ -26,7 +26,7 @@ if(!server){
     redirect('/')
 }
     return (<div className="h-full">
-        <div className=" md-flex h-full w-60 z-20 flex-col  fixed inset-y-0">
+        <div className=" md:block  hidden md-flex h-full w-60 z-20 flex-col  fixed inset-y-0">
 
         <ServerSideBar serverId={params.id} />
 
