@@ -3,7 +3,7 @@ import { channel } from "diagnostics_channel";
 import { NextApiRequest, NextApiResponse } from "next";
 import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
-import { NextApiResponseServerIo } from "../../../types";
+import { NextApiResponseServerIo } from "../../../../types";
 
 export default async function handler(
 

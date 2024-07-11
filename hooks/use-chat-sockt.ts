@@ -73,7 +73,7 @@ socket.on(addKey,(message:MessageWithMemberWithProfil)=>{
 
 return ()=>{
     socket.off(addKey)
-    // socket.updateKey(updateKey)
+    socket.off(updateKey)
 }
 },[queryClient,addKey,socket,updateKey,queryKey])
 

@@ -12,6 +12,7 @@ interface ChatInputProps {
   query: Record<string, any>;
   name: string;
   type: "conversation" | "channel";
+
 }
 const formSchema = z.object({
   content: z.string().min(1),
@@ -31,6 +32,7 @@ export const ChatInput = ({ apiUrl, name, type, query }: ChatInputProps) => {
             query
         })
         await axios.post(url,value)
+        console.log(url)
         form.reset()
     } catch (error) {
         console.log(error)
@@ -62,7 +64,9 @@ export const ChatInput = ({ apiUrl, name, type, query }: ChatInputProps) => {
                   text-zinc-600 dark:text-zinc-200"
                     placeholder={`Message  #${name}`}
                     {...field}
+                    
                   />
+           
                 </div>
               </FormControl>
             </FormItem>

@@ -1,8 +1,13 @@
 'use client'
+import qs from "query-string";
 import { ActionTooltip } from "../action-tooltip";
 import Image from "next/image";
 import { Member, Profil } from "@prisma/client";
-import { ShieldCheck } from "lucide-react";
+import { Edit, ShieldCheck } from "lucide-react";
+import { FormEvent, useState } from "react";
+import { Input } from "../ui/input";
+import axios from "axios";
+import { ChatInput } from "./chat-input";
 // import {UserAvatar} from '@/components/user-avatar'
  const roleIconMap={
     'GUEST':null,
@@ -35,8 +40,29 @@ export const ChatItem = ({
   socketUrl,
   socketQuery,
 }: ChatItemProps) => {
+ 
+  const [edit,setEdit]=useState(false)
+  const [isLoading,setIsLoading]=useState(false)
+  // const isLoading=form.formstate.isSumbitting
+  const [value,setValue]=useState(content)
+  const onpenEdit=()=>{
+    setEdit(true)
+  }
+  const submit=async(e:FormEvent<HTMLFormElement>)=>{
+    setIsLoading(true)
+    e.preventDefault()
+    const url=qs.stringifyUrl({
+      url:`${socketUrl}/${id}`,
+      query:socketQuery,
+
+    })
+    await axios.patch(url,{value})
+    setEdit(false)
+    setIsLoading(false)
+  }
   return (
     <div className="relative group flex items-center hover:bg-black/5 p-4 trabsition w-full">
+      
       <div className="group flex gap-x-2 items-start w-full">
         <div className="cursor-pointer hover:drop-shadow-md transitio ">
             <Image  alt='user'  className="rounded-md" height={20} width={20} src={member.profil.imageUrl}/>
@@ -53,10 +79,12 @@ export const ChatItem = ({
                     {roleIconMap[member.role]}
                     
                 </ActionTooltip>
+                <button onClick={onpenEdit} className="absolute right-10"> <Edit className="w-4 h-4"/></button>
             </div>
             <span className="text-xs text-zinc-500 dark:text-zinc-400">{timestamp}</span>
             </div>
-            {content }
+           {!edit &&(<p> {content }</p>)}
+           {edit && <form  className="w-full" onSubmit={(e)=>submit(e)}> <input disabled={isLoading} className="w-full bg-zinc-600/75" value={value} onChange={(e)=>setValue(e.target.value)}    /></form>}
            {/* chat item :pdf/ edit / image / editing */}
         </div>
       </div>
