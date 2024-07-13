@@ -1,6 +1,9 @@
 "use client";
+import { Smile } from 'lucide-react';
+import EmojiPicker from 'emoji-picker-react';
 import { Plus } from "lucide-react";
 import axios from "axios";
+import { useState } from 'react';
 import qs from 'query-string';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -19,7 +22,7 @@ const formSchema = z.object({
 });
 
 export const ChatInput = ({ apiUrl, name, type, query }: ChatInputProps) => {
-  const form = useForm<z.infer<typeof formSchema>>({
+  const register = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       content: "",
@@ -33,17 +36,18 @@ export const ChatInput = ({ apiUrl, name, type, query }: ChatInputProps) => {
         })
         await axios.post(url,value)
         console.log(url)
-        form.reset()
+        register.reset()
     } catch (error) {
         console.log(error)
     }
   };
-  const isLoading = form.formState.isSubmitting;
+  const [open,setOpen]=useState(false)
+  const isLoading = register.formState.isSubmitting;
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)}>
+    <Form {...register}>
+      <form onSubmit={register.handleSubmit(onSubmit)}>
         <FormField
-          control={form.control}
+          control={register.control}
           name="content"
           render={({ field }) => (
             <FormItem>
@@ -63,10 +67,12 @@ export const ChatInput = ({ apiUrl, name, type, query }: ChatInputProps) => {
                     className=" px-14 py-6 bg-zinc-200/90 dark:bg-zinc-700/75 border-none border-0 focus-visible:ring-0 focus-visible:ring-offset-0
                   text-zinc-600 dark:text-zinc-200"
                     placeholder={`Message  #${name}`}
-                    {...field}
+                    {...field}  
                     
                   />
-           
+                  <div className='hidden md:block w-10 h-10 absolute top-9 right-[22rem]  '><EmojiPicker className='absolute z-10    -top-[500px] '  open={open} onEmojiClick={(emoji)=>register.setValue( "content", `${register.getValues("content")} ${emoji.emoji}`) } /> </div> 
+                  <div  className='hidden md:block size-5  top-7 right-8 rounded-2xl absolute '> <button type="button" className='relative' onClick={()=>{
+                    setOpen((prev)=>!prev)}}> <Smile className='w-5 h-5' /> </button> </div>
                 </div>
               </FormControl>
             </FormItem>
