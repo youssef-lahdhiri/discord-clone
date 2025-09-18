@@ -9,7 +9,7 @@ const Home = () => {
 
         },{header:"From few to a fandom",content:"Get any community running with moderation tools and custom member access. Give members special powers, set up private channels, and more."}]
     return (  
-<>  <div className="w-full h-[70vh] bg-[url('/bg-img.png')] bg-cover bg-center  bg-[#404EED]">
+<>  <div className="w-full h-[100vh] bg-[url('/bg-img.png')] bg-cover bg-center  bg-[#404EED]">
     <div className=' flex   items-center justify-around w-full  h-20 '>
             <img src="/logo.png" alt="" />
             <p className='text-center w-[70%] font-bold '>Download Nitro Discover Safety Support Blog Careers</p>
