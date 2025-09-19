@@ -1,5 +1,5 @@
 import { NextApiRequest } from "next";
-import { NextApiResponseServerIo } from "../../../../types";
+import { NextApiResponseServerIo } from "@/../types";
 import { db } from "@/lib/db";
 import { currentProfil } from "@/lib/current-profil";
 import { currentProfilPages } from "@/lib/current-profil-pages";
